@@ -15,7 +15,8 @@ jobs:
     if: >
       github.repository == 'bmuenzenmeyer/action-push-or-pull-testing' &&
       github.event_name == 'push' &&
-      github.event.pull_request == null
+      startsWith(github.ref, 'refs/heads/') &&
+      github.head_ref == ''
     steps:
       - name: Example Step
         run: echo "This step runs only on direct pushes to the 'nodejs/nodejs.org' repository."
