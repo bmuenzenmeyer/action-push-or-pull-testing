@@ -15,8 +15,19 @@ jobs:
     if: >
       github.repository == 'bmuenzenmeyer/action-push-or-pull-testing' &&
       github.event_name == 'push' &&
-      startsWith(github.ref, 'refs/heads/') &&
-      github.head_ref == ''
+      !startsWith(github.ref, 'refs/pull/')
     steps:
+      - name: Debug Context
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          echo "Event Name: $EVENT_NAME"
+          echo "Ref: $REF"
+          echo "Head Ref: $HEAD_REF"
+          echo "Base Ref: $BASE_REF"
+
       - name: Example Step
-        run: echo "This step runs only on direct pushes to the 'nodejs/nodejs.org' repository."
+        run: echo "This step runs only on direct pushes."
