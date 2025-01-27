@@ -1,0 +1,21 @@
+
+on:
+  push:
+    branches:
+      - main
+
+name: Notify on Push
+permissions:
+  contents: read
+
+jobs:
+  notify_on_push:
+    name: Notify on any direct push to `main`
+    runs-on: ubuntu-latest
+    if: >
+      github.repository == 'bmuenzenmeyer/action-push-or-pull-testing' &&
+      github.event_name == 'push' &&
+      github.event.pull_request == null
+    steps:
+      - name: Example Step
+        run: echo "This step runs only on direct pushes to the 'nodejs/nodejs.org' repository."
